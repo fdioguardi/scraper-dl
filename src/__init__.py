@@ -13,9 +13,9 @@ class Scraper(object):
     def scrape(self, urls: List[str]):
         """Parse structured data from a list of pages."""
 
-        print(reduce(merge, [Metadata(url).get_json_dl() for url in urls]))
+        print(reduce(self.merge, [Metadata(url).get_json_dl() for url in urls]))
 
-    def merge(source, destination):
+    def merge(self, source, destination):
         """
         run me with nosetests --with-doctest file.py
 
@@ -28,12 +28,12 @@ class Scraper(object):
             if isinstance(value, dict):
                 # get node or create one
                 node = destination.setdefault(key, {})
-                merge(value, node)
+                self.merge(value, node)
 
             elif isinstance(value, list):
                 pass
 
-            elif are_values_overwritable(destination, key, value):
+            elif self.are_values_overwritable(destination, key, value):
                 destination[key] = value
 
             else:
@@ -45,7 +45,7 @@ class Scraper(object):
     def are_values_overwritable(self, destination, key, value):
         return destination.setdefault(key, value) == value
 
-    def merge(source, destination):
+    def merge(self, source, destination):
         source = self.normalize(source)
         destination = self.normalize(destination)
 
@@ -63,7 +63,7 @@ class Scraper(object):
         # there tecnically cant be a dict and something else...?
 
         if self.are_both_dicts(source, destination):
-            return merge(source, destination)
+            return self.merge(source, destination)
 
         elif self.are_both_lists(source, destination):
             return list(
@@ -111,7 +111,7 @@ class Scraper(object):
 
         return dictionary
 
-    def save_movie(movie):
+    def save_movie(self, movie):
         with open(
             self.create_file_name(movie),
             "w",
