@@ -1,5 +1,5 @@
 """Script entry point."""
-from src import Scraper
+from src.scraper import Scraper
 from config import URLS
 
 
