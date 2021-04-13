@@ -1,4 +1,5 @@
 from datetime import datetime
+from pprint import pprint
 from functools import reduce
 from json import dump
 from os import getcwd
@@ -13,37 +14,12 @@ class Scraper(object):
     def scrape(self, urls: List[str]):
         """Parse structured data from a list of pages."""
 
-        print(reduce(self.merge, [Metadata(url).get_json_dl() for url in urls]))
+        pprint(
+            reduce(self.merge, [Metadata(url).get_json_dl() for url in urls])
+        )
 
-    def merge(self, source, destination):
-        """
-        run me with nosetests --with-doctest file.py
-
-        >>> a = { 'first' : { 'all_rows' : { 'pass' : 'dog', 'number' : '0' } } }
-        >>> b = { 'first' : { 'all_rows' : { 'fail' : 'cat', 'number' : '4' } } }
-        >>> merge(a, b) == { 'first' : { 'all_rows' : { 'pass' : 'dog', 'fail' : 'cat', 'number' : '4' } } }
-        True
-        """
-        for key, value in source.items():
-            if isinstance(value, dict):
-                # get node or create one
-                node = destination.setdefault(key, {})
-                self.merge(value, node)
-
-            elif isinstance(value, list):
-                pass
-
-            elif self.are_values_overwritable(destination, key, value):
-                destination[key] = value
-
-            else:
-                destination[key] = [value, destination[key]]
-                pass
-
-        return destination
-
-    def are_values_overwritable(self, destination, key, value):
-        return destination.setdefault(key, value) == value
+    # def are_values_overwritable(self, destination, key, value):
+    #     return destination.setdefault(key, value) == value
 
     def merge(self, source, destination):
         source = self.normalize(source)
@@ -66,14 +42,14 @@ class Scraper(object):
             return self.merge(source, destination)
 
         elif self.are_both_lists(source, destination):
-            return list(
-                set(source + destination)
-            )  # recorrer lista mergeando los diccionarios que tiene adentro
+            for element in destination:
+                self.append_to_list(source, element)
+            return source
 
         elif self.is_one_a_list(source, destination):
             return self.append_to_list(
                 *self.identify_list_and_value(source, destination)
-            )  # TODO
+            )
 
         elif source != destination:
             return [source, destination]
@@ -81,9 +57,39 @@ class Scraper(object):
         else:  # source == destination
             return source
 
-    def append_to_list(self, list_of_values, single_value):
-        # TODO
-        pass
+    def append_to_list(self, list_of_elements, single_element):
+
+        if single_element in list_of_elements:
+            pass
+        elif isinstance(single_element, dict):
+            self.append_dict_to_list(list_of_elements, single_element)
+        else:
+            list_of_elements.append(single_element)
+
+        return list_of_elements
+
+    def append_dict_to_list(self, list_of_elements, single_element):
+        try:
+            same_dict = next(
+                dictionary
+                for dictionary in list_of_elements
+                if self.are_names_equal(element, single_element)
+            )
+
+            same_element.update(single_element)
+
+        except StopIteration:
+            list_of_elements.append(single_element)
+
+        finally:
+            return list_of_elements
+
+    def are_names_equal(element, another_element):
+        return (
+            "name" in element.keys()
+            and "name" in another_element.keys()
+            and element["name"] == another_element["name"]
+        )
 
     def identify_list_and_value(self, a_value, another_value):
         if isinstance(a_value, list):
@@ -155,4 +161,13 @@ class Metadata(object):
 
     def get_html(self):
         """Get raw HTML from a URL."""
-        return requests.get(self.url).content
+        return requests.get(
+            self.url,
+            headers={
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET",
+                "Access-Control-Allow-Headers": "Content-Type",
+                "Access-Control-Max-Age": "3600",
+                "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36",
+            },
+        ).content
