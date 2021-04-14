@@ -1,6 +1,7 @@
 from w3lib.html import get_base_url
-import extruct
+from extruct import extract
 import requests
+from json.decoder import JSONDecodeError
 
 
 class Metadata(object):
@@ -21,12 +22,16 @@ class Metadata(object):
         return bool(json_dl) and isinstance(json_dl, list)
 
     def fetch_json_dl(self):
-        return extruct.extract(
-            self.get_html(),
-            base_url=get_base_url(self.url),
-            syntaxes=["json-ld"],
-            uniform=True,
-        )["json-ld"]
+        try:
+            return extract(
+                self.get_html(),
+                base_url=get_base_url(self.url),
+                syntaxes=["json-ld"],
+                uniform=True,
+            )["json-ld"]
+        except JSONDecodeError:
+            print("JSON-LD del url: ", self.url, " invalido")
+            return {}
 
     def get_html(self):
         """Get raw HTML from a URL."""

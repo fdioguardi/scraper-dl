@@ -8,13 +8,23 @@ from typing import List
 
 
 class Scraper(object):
-    def scrape(self, urls: List[str]):
+    def scrape(self, urls_list):
         """Parse structured data from a list of pages."""
 
-        movie = reduce(
-            lambda movie, another_movie: movie.merge(another_movie),
-            [Movie(Metadata(url).get_json_dl()) for url in urls],
-        )
+        if isinstance(urls_list, list):
+            for urls in urls_list:
+                self.scrape_movie(urls)
+        else:
+            self.scrape_movie(urls_list)
+
+    def scrape_movie(self, urls):
+        if len(urls) > 1:
+            movie = reduce(
+                lambda movie, another_movie: movie.merge(another_movie),
+                [Movie(Metadata(url).get_json_dl()) for url in urls],
+            )
+        else:
+            movie = Movie(Metadata(urls).get_json_dl())
         movie = movie.remove_data(
             [
                 "@id",
