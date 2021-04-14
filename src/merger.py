@@ -41,7 +41,6 @@ class Merger(object):
 
         return self.destination[key]
 
-
     def append_to_list(self, list_of_elements, single_element):
 
         if single_element in list_of_elements:

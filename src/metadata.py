@@ -29,8 +29,9 @@ class Metadata(object):
                 syntaxes=["json-ld"],
                 uniform=True,
             )["json-ld"]
+
         except JSONDecodeError:
-            print("JSON-LD del url: ", self.url, " invalido")
+            print("Error: JSON-LD inválido del url:", self.url)
             return {}
 
     def get_html(self):

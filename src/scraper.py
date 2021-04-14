@@ -4,7 +4,6 @@ from functools import reduce
 from json import dump
 from os import getcwd
 from os.path import join, isdir
-from typing import List
 
 
 class Scraper(object):
