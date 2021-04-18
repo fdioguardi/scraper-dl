@@ -3,6 +3,7 @@
         "http://schema.org",
         "https://schema.org"
     ],
+    "@id": "https://www.ecartelera.com/peliculas/wonder-woman-1984/",
     "@type": "Movie",
     "actor": [
         {
@@ -47,7 +48,7 @@
         "name": "Tomatometer",
         "ratingCount": [
             "426",
-            190206,
+            191870,
             "57",
             "20"
         ],
@@ -83,52 +84,52 @@
         {
             "@type": "Person",
             "name": "Patty Jenkins",
-            "url": "/name/nm0420941/"
+            "url": "https://www.imdb.com/name/nm0420941/"
         },
         {
             "@type": "Person",
             "name": "Geoff Johns",
-            "url": "/name/nm0424315/"
+            "url": "https://www.imdb.com/name/nm0424315/"
         },
         {
             "@type": "Person",
             "name": "Patty Jenkins",
-            "url": "/name/nm0420941/"
+            "url": "https://www.imdb.com/name/nm0420941/"
         },
         {
             "@type": "Person",
             "name": "Geoff Johns",
-            "url": "/name/nm0424315/"
+            "url": "https://www.imdb.com/name/nm0424315/"
         },
         {
             "@type": "Person",
             "name": "Dave Callaham",
-            "url": "/name/nm1709264/"
+            "url": "https://www.imdb.com/name/nm1709264/"
         },
         {
             "@type": "Person",
             "name": "William Moulton Marston",
-            "url": "/name/nm0551376/"
+            "url": "https://www.imdb.com/name/nm0551376/"
         },
         {
             "@type": "Organization",
-            "url": "/company/co0028338/"
+            "url": "https://www.imdb.com/company/co0028338/"
         },
         {
             "@type": "Organization",
-            "url": "/company/co0038332/"
+            "url": "https://www.imdb.com/company/co0038332/"
         },
         {
             "@type": "Organization",
-            "url": "/company/co0283444/"
+            "url": "https://www.imdb.com/company/co0283444/"
         },
         {
             "@type": "Organization",
-            "url": "/company/co0728674/"
+            "url": "https://www.imdb.com/company/co0728674/"
         },
         {
             "@type": "Organization",
-            "url": "/company/co0002663/"
+            "url": "https://www.imdb.com/company/co0002663/"
         }
     ],
     "description": [
@@ -186,7 +187,7 @@
         "timeRequired": "PT2M24S"
     },
     "image": [
-        "https://resizing.flixster.com/2JNQcgkdrf0fxOzecR86SHg9x74=/740x380/v1.bjsyNTUxODM4O2o7MTg3OTQ7MTIwMDs0MTIyOzIzMTI",
+        "https://resizing.flixster.com/m8G6eIbecl1KNYf1yd2lt2F5yX8=/740x380/v1.bjsyNTUxODM4O2o7MTg4Mzk7MTIwMDs0MTIyOzIzMTI",
         "https://m.media-amazon.com/images/M/MV5BYTlhNzJjYzYtNGU3My00ZDI5LTgzZDUtYzllYjU1ZmU0YTgwXkEyXkFqcGdeQXVyMjQwMDg0Ng@@._V1_.jpg",
         "https://static.metacritic.com/images/products/movies/4/9d1a4650bb42f43a0a781bfa70a7772d.jpg"
     ],

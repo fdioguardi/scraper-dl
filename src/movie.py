@@ -8,9 +8,6 @@ class Movie(object):
         self.data = json_dl
 
     def merge(self, another_movie):
-        self.normalize()
-        another_movie.normalize()
-
         another_movie.update(self.data)
 
         return another_movie
@@ -19,30 +16,38 @@ class Movie(object):
         merger = Merger(another_data, self.data)
         self.data = merger.merge()
 
-    def normalize(self):
+    def normalize(self, source_url):
         self.data = self.standarize_keys()
         self.data = self.remove_null_values(self.data)
 
         if "url" in self.data.keys():
-            print(self.data["url"])
-            # self.data = self.complete_urls(self.data)
+            self.data = self.complete_urls(self.data, source_url)
 
-        return self.data
+        return self
 
-    def complete_urls(self, value):
+    def complete_urls(self, value, url):
         if not isinstance(value, dict):
             return value
 
         if ("url" in value.keys()):
-            if (not is_url(value["url"])):
-                splitted_url = urlsplit(self.data["url"])
-                # print(self.data["url"])
-                value["url"] = splitted_url[0] + "://" + splitted_url[1] + value["url"]
+            if (not self.is_valid_url(value["url"])):
+                splitted_url = urlsplit(url)
+                valid_url = splitted_url[0] + "://" + splitted_url[1] + value["url"]
+                if self.is_valid_url(valid_url):
+                    value["url"] = valid_url
 
         for k, v in value.items():
-            value[k] = self.complete_urls(v)
+            if isinstance(v, list):
+                new_list = []
+                for element in v:
+                    new_list.append(self.complete_urls(element, url))
+            else:
+                value[k] = self.complete_urls(v, url)
 
         return value
+
+    def is_valid_url(self, url):
+        return is_url(url) and (not " " in url)
 
     def remove_null_values(self, value):
         if isinstance(value, list):
@@ -61,7 +66,7 @@ class Movie(object):
             return value
 
     def is_valid_value(self, value):
-        return value is not None
+        return ((value is not None) and (value != ""))
 
     def standarize_keys(self):
         problematic_keys = [("actor", "actors"), ("url", "mainEntityOfPage")]
@@ -69,7 +74,6 @@ class Movie(object):
         for pair in problematic_keys:
             standard_key, key = pair
             if key in self.data:
-                print(key, "  ", self.data[key])
                 self.data[standard_key] = self.data.pop(key)
 
         return self.data

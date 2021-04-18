@@ -3,6 +3,7 @@
         "http://schema.org",
         "https://schema.org"
     ],
+    "@id": "https://www.ecartelera.com/peliculas/los-caballeros-de-la-mesa-cuadrada-y-sus-locos-seguidores/",
     "@type": "Movie",
     "actor": [
         {
@@ -47,7 +48,7 @@
         "name": "Tomatometer",
         "ratingCount": [
             "78",
-            505281,
+            505549,
             "24",
             "9"
         ],
@@ -126,49 +127,49 @@
         {
             "@type": "Person",
             "name": "Graham Chapman",
-            "url": "/name/nm0001037/"
+            "url": "https://www.imdb.com/name/nm0001037/"
         },
         {
             "@type": "Person",
             "name": "John Cleese",
-            "url": "/name/nm0000092/"
+            "url": "https://www.imdb.com/name/nm0000092/"
         },
         {
             "@type": "Person",
             "name": "Eric Idle",
-            "url": "/name/nm0001385/"
+            "url": "https://www.imdb.com/name/nm0001385/"
         },
         {
             "@type": "Person",
             "name": "Terry Gilliam",
-            "url": "/name/nm0000416/"
+            "url": "https://www.imdb.com/name/nm0000416/"
         },
         {
             "@type": "Person",
             "name": "Terry Jones",
-            "url": "/name/nm0001402/"
+            "url": "https://www.imdb.com/name/nm0001402/"
         },
         {
             "@type": "Person",
             "name": "Michael Palin",
-            "url": "/name/nm0001589/"
+            "url": "https://www.imdb.com/name/nm0001589/"
         },
         {
             "@type": "Person",
             "name": "Thomas Malory",
-            "url": "/name/nm0540627/"
+            "url": "https://www.imdb.com/name/nm0540627/"
         },
         {
             "@type": "Organization",
-            "url": "/company/co0103397/"
+            "url": "https://www.imdb.com/company/co0103397/"
         },
         {
             "@type": "Organization",
-            "url": "/company/co0103461/"
+            "url": "https://www.imdb.com/company/co0103461/"
         },
         {
             "@type": "Organization",
-            "url": "/company/co0061741/"
+            "url": "https://www.imdb.com/company/co0061741/"
         }
     ],
     "description": [
@@ -207,7 +208,6 @@
             "@type": "WatchAction",
             "expectsAcceptanceOf": {
                 "@type": "Offer",
-                "availabilityStarts": "",
                 "category": "free",
                 "eligibleRegion": {
                     "@type": "Country",
@@ -222,11 +222,9 @@
                     "http://schema.org/IOSPlatform",
                     "http://schema.googleapis.com/GoogleVideoCast"
                 ],
-                "inLanguage": "es",
-                "urlTemplate": ""
+                "inLanguage": "es"
             }
-        },
-        "timeRequired": ""
+        }
     },
     "image": [
         "https://resizing.flixster.com/SnyTqNxQw02PR_6IXtuvTMmJ348=/740x380/v1.bjs2ODU5MzU7ajsxODc3MjsxMjAwOzEyODA7NzIw",
@@ -702,8 +700,7 @@
             "@type": "Review",
             "author": {
                 "@type": "Person",
-                "name": "NA",
-                "url": ""
+                "name": "NA"
             },
             "dateCreated": "2011-03-29T04:07:51-07:00",
             "publisher": {

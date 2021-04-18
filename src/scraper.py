@@ -20,7 +20,7 @@ class Scraper(object):
         if isinstance(urls, list) and len(urls) > 1:
             movie = reduce(
                 lambda movie, another_movie: movie.merge(another_movie),
-                [Movie(Metadata(url).get_json_dl()) for url in urls],
+                [Movie(Metadata(url).get_json_dl()).normalize(url) for url in urls],
             )
         else:
             movie = Movie(Metadata(urls).get_json_dl())
