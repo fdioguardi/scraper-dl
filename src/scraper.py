@@ -17,20 +17,20 @@ class Scraper(object):
             self.scrape_movie(urls_list)
 
     def scrape_movie(self, urls):
-        if len(urls) > 1:
+        if isinstance(urls, list) and len(urls) > 1:
             movie = reduce(
                 lambda movie, another_movie: movie.merge(another_movie),
                 [Movie(Metadata(url).get_json_dl()) for url in urls],
             )
         else:
             movie = Movie(Metadata(urls).get_json_dl())
+
         movie = movie.remove_data(
             [
                 "@id",
                 "dateCreated",
                 "dateModified",
                 "datePublished",
-                "mainEntityOfPage",
                 "url",
             ]
         )

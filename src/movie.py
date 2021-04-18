@@ -1,3 +1,5 @@
+from urllib.parse import urlsplit
+from w3lib.url import is_url
 from src.merger import Merger
 
 
@@ -20,7 +22,27 @@ class Movie(object):
     def normalize(self):
         self.data = self.standarize_keys()
         self.data = self.remove_null_values(self.data)
+
+        if "url" in self.data.keys():
+            print(self.data["url"])
+            # self.data = self.complete_urls(self.data)
+
         return self.data
+
+    def complete_urls(self, value):
+        if not isinstance(value, dict):
+            return value
+
+        if ("url" in value.keys()):
+            if (not is_url(value["url"])):
+                splitted_url = urlsplit(self.data["url"])
+                # print(self.data["url"])
+                value["url"] = splitted_url[0] + "://" + splitted_url[1] + value["url"]
+
+        for k, v in value.items():
+            value[k] = self.complete_urls(v)
+
+        return value
 
     def remove_null_values(self, value):
         if isinstance(value, list):
@@ -42,10 +64,12 @@ class Movie(object):
         return value is not None
 
     def standarize_keys(self):
-        problematic_keys = [("actor", "actors")]
+        problematic_keys = [("actor", "actors"), ("url", "mainEntityOfPage")]
 
-        for standard_key, key in problematic_keys:
+        for pair in problematic_keys:
+            standard_key, key = pair
             if key in self.data:
+                print(key, "  ", self.data[key])
                 self.data[standard_key] = self.data.pop(key)
 
         return self.data
